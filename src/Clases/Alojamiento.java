@@ -12,6 +12,8 @@ public class Alojamiento {
         this.direccion = pDireccion;
         this.descripcion = pDescripcion;
     }
+    
+    public void hola(){}
 
     public String getNombre() {
         return nombre;
