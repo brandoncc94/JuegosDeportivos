@@ -1,9 +1,9 @@
 
 package juegosdeportivos;
+import DAO.EventoDAO;
+import Factory.DAOFactory;
 import SQLQueries.Evento;
-import SQLQueries.EventoQueries;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -16,16 +16,17 @@ public class FrmInsertarEvento extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         cargarCMBInstalacion();
         cargarCMBClasificacion();
-        cargarCMBMetricas();
-        
+        cargarCMBMetricas();        
     }
     
-    public void cargarCMBMetricas(){
+    public void cargarCMBMetricas(){        
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> metricas = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        metricas = consultasEvento.seleccionarMetricas();
+        metricas = eveDAO.seleccionarMetricas();
         
         Iterator iterador = metricas.listIterator();
         while( iterador.hasNext() ) {
@@ -34,12 +35,14 @@ public class FrmInsertarEvento extends javax.swing.JFrame {
         cmbMetrica.setModel(modeloCombo);
     }
     
-    public void cargarCMBInstalacion(){
+    public void cargarCMBInstalacion(){        
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> instalaciones = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        instalaciones = consultasEvento.seleccionarInstalaciones();
+        instalaciones = eveDAO.seleccionarInstalaciones();
         
         Iterator iterador = instalaciones.listIterator();
         while( iterador.hasNext() ) {
@@ -49,11 +52,14 @@ public class FrmInsertarEvento extends javax.swing.JFrame {
     }
     
     public void cargarCMBClasificacion(){
+        
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> clasificaciones = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        clasificaciones = consultasEvento.seleccionarClasificaciones();
+        clasificaciones = eveDAO.seleccionarClasificaciones();
         
         Iterator iterador = clasificaciones.listIterator();
         while( iterador.hasNext() ) {
@@ -75,8 +81,11 @@ public class FrmInsertarEvento extends javax.swing.JFrame {
                                        Integer.parseInt(tbxRango1.getText()),  Integer.parseInt(tbxRango2.getText()),  Integer.parseInt(tbxLimiteSerie.getText()),
                                        (int) cmbInstalacion.getSelectedItem(), (int) cmbClasificacion.getSelectedItem());
 
-                EventoQueries consultasEvento = new EventoQueries();
-                int result = consultasEvento.insertarEvento(evento);
+                
+                DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+                EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+                
+                int result = eveDAO.insertarEvento(evento);
                 if(result > 0 )
                     JOptionPane.showMessageDialog(null, "Evento insertado correctamente!");
                 else

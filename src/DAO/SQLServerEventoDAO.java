@@ -1,19 +1,22 @@
 
-package SQLQueries;
+package DAO;
 
+import Factory.SQLServerDAOFactory;
+import SQLQueries.Evento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import SQLConnector.SQLServerConnector;
-import javax.swing.JOptionPane;
 
-public class EventoQueries {
+public class SQLServerEventoDAO implements EventoDAO {
     
-    public EventoQueries(){ }
-
+    public SQLServerEventoDAO(){ }
+   
+    // Implement search persons here using the supplied criteria.
+    // Alternatively, implement to return a Collection of Transfer Objects.
+    @Override
     // Implementación de la creación de un nuevo evento.
     public int insertarEvento(Evento pEvento) {
         
@@ -22,7 +25,7 @@ public class EventoQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("INSERT INTO Evento(nombre, tipoCompetidor,"
                     +" genero, fechaInicio, fechaFin, rangoInicial, rangoFinal,"
                     + " limiteSerie, metricaId, instalacionId, clasificacionId) "
@@ -60,6 +63,7 @@ public class EventoQueries {
     }
     
     // Implementación de la actualización de un nuevo evento.
+    @Override
     public int actualizarEvento(Evento pEvento, int pId) {
         
         Connection conn = null;
@@ -67,7 +71,7 @@ public class EventoQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("UPDATE Evento "
                     + "SET nombre = ?,"
                     + "tipoCompetidor = ?,"
@@ -116,6 +120,7 @@ public class EventoQueries {
     
     
     // Implementación de la eliminación de un nuevo evento.
+    @Override
     public int eliminarEvento(int pId) {
         
         Connection conn = null;
@@ -123,7 +128,7 @@ public class EventoQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("DELETE "
                     + "FROM evento "
                     + "WHERE idEvento = " + pId);
@@ -150,6 +155,7 @@ public class EventoQueries {
     
     
     // Buscar todas las instalaciones disponibles
+    @Override
     public List seleccionarInstalaciones() {
         Connection conn = null;
         PreparedStatement stmt;
@@ -157,7 +163,7 @@ public class EventoQueries {
         List<Integer> instalaciones = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT idInstalacion FROM Instalacion");
             rs = stmt.executeQuery();
             
@@ -185,6 +191,7 @@ public class EventoQueries {
     }
     
     // Buscar todas las instalaciones disponibles
+    @Override
     public List seleccionarClasificaciones() {
         Connection conn = null;
         PreparedStatement stmt;
@@ -192,7 +199,7 @@ public class EventoQueries {
         List<Integer> clasificaciones = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT idClasificacion FROM Clasificacion");
             rs = stmt.executeQuery();
             
@@ -220,6 +227,7 @@ public class EventoQueries {
     }
     
     // Buscar todas las métricas disponibles
+    @Override
     public List seleccionarMetricas() {
         Connection conn = null;
         PreparedStatement stmt;
@@ -227,7 +235,7 @@ public class EventoQueries {
         List<Integer> metricas = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT idMetrica FROM Metrica");
             rs = stmt.executeQuery();
             
@@ -255,6 +263,7 @@ public class EventoQueries {
     }
     
     // Buscar todos los Id's disponibles
+    @Override
     public List seleccionarIds() {
         Connection conn = null;
         PreparedStatement stmt;
@@ -262,7 +271,7 @@ public class EventoQueries {
         List<Integer> ids = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT idEvento FROM Evento");
             rs = stmt.executeQuery();
             
@@ -291,6 +300,7 @@ public class EventoQueries {
     
     
     // Buscar todas los detalles del Evento 
+    @Override
     public void seleccionarDetallesEvento(int pId, javax.swing.JTextField pTxtNombre,
             javax.swing.JComboBox pCmbTipo, javax.swing.JComboBox pCmbGenero, 
             com.toedter.calendar.JDateChooser pCalendarFechaInicio, 
@@ -303,7 +313,7 @@ public class EventoQueries {
         ResultSet rs;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT nombre, tipoCompetidor,"
                     + "genero, fechaInicio, fechaFin, rangoInicial, rangoFinal,"
                     + " limiteSerie, metricaId, instalacionId, clasificacionId"
@@ -351,37 +361,4 @@ public class EventoQueries {
             }
         }
     }
-    
-    /*
-    
-    // Change name and last name upper case.
-    // Return 0 for success or a -1 on error.
-    public int toUpperCaseNameAndLastName() {
-        
-        Connection conn = null;
-        PreparedStatement stmt;
-        int error = 0;
-        
-        try{  
-            conn = SQLServerConnector.createConnection();
-            stmt = conn.prepareStatement("EXEC toUpperCaseNameAndLastName");
-            stmt.execute();
-        } 
-        catch(SQLException e){
-            error = -1;
-            System.out.println("Message: " + e.getMessage() + "\n" + "Code: " + e.getErrorCode());
-        }
-        finally{
-            if(conn != null){
-                try{
-                    conn.close();
-                }
-                catch(SQLException e){
-                    System.out.println("Message: " + e.getMessage() + "\n" + "Code: " + e.getErrorCode());
-                }
-            }
-        }
-        
-        return error;
-    }*/
 }

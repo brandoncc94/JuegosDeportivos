@@ -1,22 +1,16 @@
 
 package juegosdeportivos;
 
-import SQLQueries.EventoQueries;
+import DAO.EventoDAO;
+import Factory.DAOFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author brandonc94
- */
 public class FrmEliminarEvento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEliminarEvento
-     */
     public FrmEliminarEvento() {
         initComponents();
         setLocationRelativeTo(null);
@@ -24,11 +18,13 @@ public class FrmEliminarEvento extends javax.swing.JFrame {
     }
     
     public void cargarCMBIds(){
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> ids = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        ids = consultasEvento.seleccionarIds();
+        ids = eveDAO.seleccionarIds();
         
         Iterator iterador = ids.listIterator();
         while( iterador.hasNext() ) {
@@ -39,8 +35,10 @@ public class FrmEliminarEvento extends javax.swing.JFrame {
     
     public void eliminarEvento(){
         if(cmbId.getSelectedItem() != null){
-            EventoQueries consultasEvento = new EventoQueries();
-            int result = consultasEvento.eliminarEvento((int) cmbId.getSelectedItem());
+            
+            DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+            EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+            int result = eveDAO.eliminarEvento((int) cmbId.getSelectedItem());
             if(result == -1){
                 JOptionPane.showMessageDialog(null, "No se puede eliminar el evento, ya que tiene dependencias.!");
             }else{

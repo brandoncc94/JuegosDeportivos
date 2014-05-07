@@ -1,7 +1,8 @@
 
 package juegosdeportivos;
+import DAO.EventoDAO;
+import Factory.DAOFactory;
 import SQLQueries.Evento;
-import SQLQueries.EventoQueries;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,11 +21,13 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
     }
     
     public void cargarCMBIds(){
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> ids = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        ids = consultasEvento.seleccionarIds();
+        ids = eveDAO.seleccionarIds();
         
         Iterator iterador = ids.listIterator();
         while( iterador.hasNext() ) {
@@ -34,11 +37,13 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
     }
     
     public void cargarCMBMetricas(){
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> metricas = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        metricas = consultasEvento.seleccionarMetricas();
+        metricas = eveDAO.seleccionarMetricas();
         
         Iterator iterador = metricas.listIterator();
         while( iterador.hasNext() ) {
@@ -48,11 +53,13 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
     }
     
     public void cargarCMBInstalacion(){
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> instalaciones = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        instalaciones = consultasEvento.seleccionarInstalaciones();
+        instalaciones = eveDAO.seleccionarInstalaciones();
         
         Iterator iterador = instalaciones.listIterator();
         while( iterador.hasNext() ) {
@@ -62,11 +69,13 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
     }
     
     public void cargarCMBClasificacion(){
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+        
         List<Integer> clasificaciones = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EventoQueries consultasEvento = new EventoQueries();
-        clasificaciones = consultasEvento.seleccionarClasificaciones();
+        clasificaciones = eveDAO.seleccionarClasificaciones();
         
         Iterator iterador = clasificaciones.listIterator();
         while( iterador.hasNext() ) {
@@ -77,8 +86,9 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
     
     public void buscarEvento(){
         if(cmbId.getSelectedItem() != null){
-            EventoQueries consultasEvento = new EventoQueries();
-            consultasEvento.seleccionarDetallesEvento((int) cmbId.getSelectedItem(),
+            DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+            EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+            eveDAO.seleccionarDetallesEvento((int) cmbId.getSelectedItem(),
                     tbxNombre, cmbTipo, cmbGenero, calendarFechaInicio, calendarFechaFin,
                     tbxRango1, tbxRango2, tbxLimiteSerie, cmbMetrica, cmbInstalacion, cmbClasificacion);
         }else{
@@ -99,8 +109,10 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
                                        Integer.parseInt(tbxRango1.getText()),  Integer.parseInt(tbxRango2.getText()),  Integer.parseInt(tbxLimiteSerie.getText()),
                                        (int) cmbInstalacion.getSelectedItem(), (int) cmbClasificacion.getSelectedItem());
 
-                EventoQueries consultasEvento = new EventoQueries();
-                int result = consultasEvento.actualizarEvento(evento, (int) cmbId.getSelectedItem());
+                DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+                EventoDAO eveDAO = sqlserverFactory.getEventoDAO();
+                
+                int result = eveDAO.actualizarEvento(evento, (int) cmbId.getSelectedItem());
                 if(result > 0 ){
                     JOptionPane.showMessageDialog(null, "Evento actualizado correctamente!");
                     
@@ -343,10 +355,11 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tbxNombre)
@@ -370,9 +383,9 @@ public class FrmActualizarEvento extends javax.swing.JFrame {
                     .addComponent(calendarFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbMetrica, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbMetrica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
