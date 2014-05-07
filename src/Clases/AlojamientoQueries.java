@@ -1,5 +1,5 @@
 
-package SQLQueries;
+package Clases;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntrenadorQueries {
+public class AlojamientoQueries {
+
+    public AlojamientoQueries() {};
     
-    public EntrenadorQueries(){};
-    
-    public int insertarEntrenador(Entrenador pEntrenador){
+    public int insertarAlojamiento(Alojamiento pAlojamiento){
         
         Connection conn = null;
         PreparedStatement stmt;
@@ -20,12 +20,11 @@ public class EntrenadorQueries {
         
         try{  
             conn = SQLServerConnector.createConnection();
-            stmt = conn.prepareStatement("INSERT INTO Entrenador(idEntrenador, nombre,"
-                    +" apellidoP, apellidoM) VALUES(?,?,?,?)");
-            stmt.setInt(1, pEntrenador.getIdEntrendor());
-            stmt.setString(2, pEntrenador.getNombre());
-            stmt.setString(3, pEntrenador.getApellidoP());
-            stmt.setString(4, pEntrenador.getApellidoM());
+            stmt = conn.prepareStatement("INSERT INTO Alojamiento(nombre,"
+                    +" direccion, descripcion) VALUES(?,?,?)");
+            stmt.setString(1, pAlojamiento.getNombre());
+            stmt.setString(2, pAlojamiento.getDirecion());
+            stmt.setString(3, pAlojamiento.getDescripcion());
             
             rowCount = stmt.executeUpdate();
         } 
@@ -47,21 +46,22 @@ public class EntrenadorQueries {
         return rowCount;
     }
 
-     public List seleccionarEntrenadores() {
+    // Buscar todos los alojamientos disponibles
+    public List seleccionarAlojamientos() {
         Connection conn = null;
         PreparedStatement stmt;
         ResultSet rs;
-        List<Integer> entrenadores = new ArrayList<>();
+        List<Integer> alojamientos = new ArrayList<>();
         
         try{  
             conn = SQLServerConnector.createConnection();
-            stmt = conn.prepareStatement("SELECT idEntrenador FROM Entrenador");
+            stmt = conn.prepareStatement("SELECT idAlojamiento FROM Alojamiento");
             rs = stmt.executeQuery();
             
-            entrenadores = new ArrayList();
+            alojamientos = new ArrayList();
             
             while(rs.next()){
-                entrenadores.add(rs.getInt("idEntrenador"));
+                alojamientos.add(rs.getInt("idAlojamiento"));
             }
         } 
         catch(SQLException e){
@@ -78,6 +78,6 @@ public class EntrenadorQueries {
             }
         }
         
-        return entrenadores;
+        return alojamientos;
     }
 }

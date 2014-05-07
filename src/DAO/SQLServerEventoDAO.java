@@ -2,7 +2,7 @@
 package DAO;
 
 import Factory.SQLServerDAOFactory;
-import SQLQueries.Evento;
+import Clases.Evento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

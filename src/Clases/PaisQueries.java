@@ -1,5 +1,5 @@
 
-package SQLQueries;
+package Clases;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

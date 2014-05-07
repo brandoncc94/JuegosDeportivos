@@ -1,5 +1,5 @@
 
-package SQLQueries;
+package Clases;
 
 public abstract class Competidor {
     private String pais;

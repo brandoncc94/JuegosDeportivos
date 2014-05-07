@@ -1,6 +1,10 @@
 
 package juegosdeportivos;
-import SQLQueries.*;
+import Clases.Individuo;
+import Clases.AlojamientoQueries;
+import Clases.IndividuoQueries;
+import Clases.EntrenadorQueries;
+import Clases.PaisQueries;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;

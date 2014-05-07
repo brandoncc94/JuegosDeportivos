@@ -4,8 +4,8 @@
  */
 package juegosdeportivos;
 
-import SQLQueries.Entrenador;
-import SQLQueries.EntrenadorQueries;
+import Clases.Entrenador;
+import Clases.EntrenadorQueries;
 import javax.swing.JOptionPane;
 
 /**

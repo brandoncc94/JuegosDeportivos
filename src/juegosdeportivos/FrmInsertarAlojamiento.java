@@ -1,7 +1,8 @@
 
 package juegosdeportivos;
 
-import SQLQueries.*;
+import Clases.AlojamientoQueries;
+import Clases.Alojamiento;
 import javax.swing.JOptionPane;
 
 public class FrmInsertarAlojamiento extends javax.swing.JFrame {

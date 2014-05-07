@@ -1,5 +1,5 @@
 
-package SQLQueries;
+package Clases;
 
 import java.util.Date;
 

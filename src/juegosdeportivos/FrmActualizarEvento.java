@@ -2,7 +2,7 @@
 package juegosdeportivos;
 import DAO.EventoDAO;
 import Factory.DAOFactory;
-import SQLQueries.Evento;
+import Clases.Evento;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Factory;
 
@@ -12,10 +7,6 @@ import java.sql.SQLException;
 import DAO.EventoDAO;
 import DAO.SQLServerEventoDAO;
 
-/**
- *
- * @author AAC
- */
 public class SQLServerDAOFactory extends DAOFactory {
     
     public static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; // Ref http://technet.microsoft.com/en-us/library/ms378526.aspx
@@ -43,7 +34,6 @@ public class SQLServerDAOFactory extends DAOFactory {
     
     @Override
     public EventoDAO getEventoDAO() {
-        
         // SQLServerPersonDAO implements PersonDAO
         return new SQLServerEventoDAO();
     }

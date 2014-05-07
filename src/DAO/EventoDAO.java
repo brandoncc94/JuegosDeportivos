@@ -1,31 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package DAO;
 
-import SQLQueries.Evento;
-import java.util.Collection;
+import Clases.Evento;
 import java.util.List;
-import javax.sql.RowSet;
 
-/**
- *
- * @author AAC
- */
 public interface EventoDAO {
     
-    // Basic CRUD operations
-    
-    // Create new person
     public int insertarEvento(Evento pEvento);
     
-    // Remove a person
     public int eliminarEvento(int pId);
     
-    // Update a person
     public int actualizarEvento(Evento pEvento, int pId);
     
     public List seleccionarInstalaciones();
