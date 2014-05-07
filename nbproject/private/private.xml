@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/juegosdeportivos/FrmInsertarIndividuo.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>71</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmEliminarEvento.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/SQLConnector/SQLServerConnector.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmActualizarEvento.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmInsertarAlojamiento.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmInsertarEntrenador.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/SQLQueries/Evento.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmMenuEvento.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/JuegosDeportivos.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmInsertarEvento.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/SQLQueries/EventoQueries.java</file>
+            <file>file:/C:/Users/brandonc94/Desktop/Progra%20II%20BD%20avance%201/JuegosDeportivos/src/juegosdeportivos/FrmMenuPrincipal.java</file>
+        </group>
+    </open-files>
+</project-private>
