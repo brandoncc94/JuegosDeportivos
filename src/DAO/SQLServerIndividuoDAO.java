@@ -1,17 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package Clases;
 
+package DAO;
+
+import Factory.SQLServerDAOFactory;
+import Clases.Individuo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class IndividuoQueries {
-
-    public IndividuoQueries() {}
+public class SQLServerIndividuoDAO implements IndividuoDAO {
     
+    public SQLServerIndividuoDAO(){ }
+   
+    // Implement search persons here using the supplied criteria.
+    // Alternatively, implement to return a Collection of Transfer Objects.
+    @Override
+    // Implementación de la creación de un nuevo evento.
     public int insertarIndividuo(Individuo pIndividuo){
         
         Connection conn = null;
@@ -19,7 +22,8 @@ public class IndividuoQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            insertarCompetidor(pIndividuo);
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("INSERT INTO Individuo(idIndividuo,"
                     +" nombre, apellidoP, apellidoM, fechaNacimiento, "
                     + "ocupacion, ciudad) VALUES(?,?,?,?,?,?,?)");
@@ -32,8 +36,6 @@ public class IndividuoQueries {
             stmt.setString(7, pIndividuo.getCiudad());
             
             rowCount = stmt.executeUpdate();
-            
-            insertarCompetidor(pIndividuo);
         } 
         catch(SQLException e){
             rowCount = -1;
@@ -53,6 +55,8 @@ public class IndividuoQueries {
         return rowCount;
     }
     
+    // Implementación de la actualización de un nuevo evento.
+    @Override
     public int insertarCompetidor(Individuo pIndividuo){
         
         Connection conn = null;
@@ -60,7 +64,7 @@ public class IndividuoQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("INSERT INTO Competidor(tipo,"
                     +" genero, ISO, entrenadorId, alojamientoId "
                     + ") VALUES(?,?,?,?,?)");
@@ -90,3 +94,4 @@ public class IndividuoQueries {
         return rowCount;
     }
 }
+

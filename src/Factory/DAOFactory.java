@@ -1,7 +1,7 @@
 
 package Factory;
 
-import DAO.EventoDAO;
+import DAO.*;
 
 public abstract class DAOFactory {
 
@@ -14,6 +14,10 @@ public abstract class DAOFactory {
 
     // There will be a method for each DAO that can be created. The concrete factories will have to implement these methods.
     public abstract EventoDAO getEventoDAO();
+    public abstract IndividuoDAO getIndividuoDAO();
+    public abstract AlojamientoDAO getAlojamientoDAO();
+    public abstract EntrenadorDAO getEntrenadorDAO();
+    public abstract PaisDAO getPaisDAO();
 
     public static DAOFactory getDAOFactory(int whichFactory){
 

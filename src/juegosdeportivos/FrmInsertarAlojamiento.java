@@ -1,8 +1,9 @@
 
 package juegosdeportivos;
 
-import Clases.AlojamientoQueries;
 import Clases.Alojamiento;
+import DAO.AlojamientoDAO;
+import Factory.DAOFactory;
 import javax.swing.JOptionPane;
 
 public class FrmInsertarAlojamiento extends javax.swing.JFrame {
@@ -21,8 +22,10 @@ public class FrmInsertarAlojamiento extends javax.swing.JFrame {
             Alojamiento alojamiento = new Alojamiento(txtNombre.getText(),
                     txtDireccion.getText(), txtDescripcion.getText());
             
-            AlojamientoQueries consultasAlojamiento = new AlojamientoQueries();
-            int result = consultasAlojamiento.insertarAlojamiento(alojamiento);
+            DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+            AlojamientoDAO alojamientoDAO = sqlserverFactory.getAlojamientoDAO();
+                
+            int result = alojamientoDAO.insertarAlojamiento(alojamiento);
             if(result > 0 )
                     JOptionPane.showMessageDialog(null, "Alojamiento insertado correctamente!");
             else

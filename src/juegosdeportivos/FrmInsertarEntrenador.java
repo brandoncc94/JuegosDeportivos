@@ -5,7 +5,8 @@
 package juegosdeportivos;
 
 import Clases.Entrenador;
-import Clases.EntrenadorQueries;
+import DAO.EntrenadorDAO;
+import Factory.DAOFactory;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,8 +31,9 @@ public class FrmInsertarEntrenador extends javax.swing.JFrame {
             Entrenador entrenador = new Entrenador(txtNombre.getText(), txtApellidoP.getText(), 
                     txtApellidoM.getText(), Integer.parseInt(txtIdEntrenador.getText()));
             
-            EntrenadorQueries consultasEntrenador = new EntrenadorQueries();
-            int result = consultasEntrenador.insertarEntrenador(entrenador);
+            DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+            EntrenadorDAO entrenadorDAO = sqlserverFactory.getEntrenadorDAO();
+            int result = entrenadorDAO.insertarEntrenador(entrenador);
             if(result > 0 )
                     JOptionPane.showMessageDialog(null, "Entrenador insertado correctamente!");
             else

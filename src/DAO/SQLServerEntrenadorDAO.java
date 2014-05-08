@@ -1,6 +1,8 @@
 
-package Clases;
+package DAO;
 
+import Clases.Entrenador;
+import Factory.SQLServerDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntrenadorQueries {
+public class SQLServerEntrenadorDAO implements EntrenadorDAO {
     
-    public EntrenadorQueries(){};
+    public SQLServerEntrenadorDAO(){ }
+   
+    // Implement search persons here using the supplied criteria.
+    // Alternatively, implement to return a Collection of Transfer Objects.
+    @Override
+    // Implementación de la creación de un nuevo evento.
     
     public int insertarEntrenador(Entrenador pEntrenador){
         
@@ -19,7 +26,7 @@ public class EntrenadorQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("INSERT INTO Entrenador(idEntrenador, nombre,"
                     +" apellidoP, apellidoM) VALUES(?,?,?,?)");
             stmt.setInt(1, pEntrenador.getIdEntrendor());
@@ -47,14 +54,16 @@ public class EntrenadorQueries {
         return rowCount;
     }
 
-     public List seleccionarEntrenadores() {
+    @Override
+    // Buscar todos los alojamientos disponibles
+    public List seleccionarEntrenadores() {
         Connection conn = null;
         PreparedStatement stmt;
         ResultSet rs;
         List<Integer> entrenadores = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT idEntrenador FROM Entrenador");
             rs = stmt.executeQuery();
             
@@ -81,3 +90,4 @@ public class EntrenadorQueries {
         return entrenadores;
     }
 }
+

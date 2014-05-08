@@ -4,13 +4,12 @@ package Factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import DAO.EventoDAO;
-import DAO.SQLServerEventoDAO;
+import DAO.*;
 
 public class SQLServerDAOFactory extends DAOFactory {
     
     public static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver"; // Ref http://technet.microsoft.com/en-us/library/ms378526.aspx
-    public static final String DBURL = "jdbc:sqlserver://localhost:1433;databaseName=JuegosDeportivos;integratedSecurity=true"; // Ref http://technet.microsoft.com/en-us/library/ms378428.aspx
+    public static final String DBURL = "jdbc:sqlserver://PMARENCOG\\MSSQLSERVERJMG;databaseName=JuegosDeportivos;integratedSecurity=true"; // Ref http://technet.microsoft.com/en-us/library/ms378428.aspx
 
     // Method to create SQLServer connections
     public static Connection createConnection() {
@@ -36,6 +35,30 @@ public class SQLServerDAOFactory extends DAOFactory {
     public EventoDAO getEventoDAO() {
         // SQLServerPersonDAO implements PersonDAO
         return new SQLServerEventoDAO();
+    }
+    
+    @Override
+    public IndividuoDAO getIndividuoDAO() {
+        // SQLServerPersonDAO implements PersonDAO
+        return new SQLServerIndividuoDAO();
+    }
+    
+    @Override
+    public AlojamientoDAO getAlojamientoDAO() {
+        // SQLServerPersonDAO implements PersonDAO
+        return new SQLServerAlojamientoDAO();
+    }
+    
+    @Override
+    public EntrenadorDAO getEntrenadorDAO() {
+        // SQLServerPersonDAO implements PersonDAO
+        return new SQLServerEntrenadorDAO();
+    }
+    
+    @Override
+    public PaisDAO getPaisDAO() {
+        // SQLServerPersonDAO implements PersonDAO
+        return new SQLServerPaisDAO();
     }
 }
 

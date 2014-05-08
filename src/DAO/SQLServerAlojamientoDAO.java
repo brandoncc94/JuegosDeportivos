@@ -1,6 +1,8 @@
 
-package Clases;
+package DAO;
 
+import Clases.Alojamiento;
+import Factory.SQLServerDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlojamientoQueries {
-
-    public AlojamientoQueries() {};
+public class SQLServerAlojamientoDAO implements AlojamientoDAO {
+    
+    public SQLServerAlojamientoDAO(){ }
+   
+    // Implement search persons here using the supplied criteria.
+    // Alternatively, implement to return a Collection of Transfer Objects.
+    @Override
+    // Implementación de la creación de un nuevo evento.
     
     public int insertarAlojamiento(Alojamiento pAlojamiento){
         
@@ -19,7 +26,7 @@ public class AlojamientoQueries {
         int rowCount = 0;
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("INSERT INTO Alojamiento(nombre,"
                     +" direccion, descripcion) VALUES(?,?,?)");
             stmt.setString(1, pAlojamiento.getNombre());
@@ -46,6 +53,7 @@ public class AlojamientoQueries {
         return rowCount;
     }
 
+    @Override
     // Buscar todos los alojamientos disponibles
     public List seleccionarAlojamientos() {
         Connection conn = null;
@@ -54,7 +62,7 @@ public class AlojamientoQueries {
         List<Integer> alojamientos = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT idAlojamiento FROM Alojamiento");
             rs = stmt.executeQuery();
             
@@ -81,3 +89,4 @@ public class AlojamientoQueries {
         return alojamientos;
     }
 }
+

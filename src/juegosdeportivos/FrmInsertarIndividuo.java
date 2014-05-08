@@ -1,10 +1,8 @@
 
 package juegosdeportivos;
 import Clases.Individuo;
-import Clases.AlojamientoQueries;
-import Clases.IndividuoQueries;
-import Clases.EntrenadorQueries;
-import Clases.PaisQueries;
+import DAO.*;
+import Factory.DAOFactory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,8 +24,9 @@ public class FrmInsertarIndividuo extends javax.swing.JFrame {
         List<Integer> alojamientos = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        AlojamientoQueries consultasAlojamiento = new AlojamientoQueries();
-        alojamientos = consultasAlojamiento.seleccionarAlojamientos();
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        AlojamientoDAO alojamientoDAO = sqlserverFactory.getAlojamientoDAO();
+        alojamientos = alojamientoDAO.seleccionarAlojamientos();
         
         Iterator iterador = alojamientos.listIterator();
         while( iterador.hasNext() ) {
@@ -40,8 +39,9 @@ public class FrmInsertarIndividuo extends javax.swing.JFrame {
         List<Integer> entrenadores = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        EntrenadorQueries consultasAlojamiento = new EntrenadorQueries();
-        entrenadores = consultasAlojamiento.seleccionarEntrenadores();
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        EntrenadorDAO entrenadorDAO = sqlserverFactory.getEntrenadorDAO();
+        entrenadores = entrenadorDAO.seleccionarEntrenadores();
         
         Iterator iterador = entrenadores.listIterator();
         while( iterador.hasNext() ) {
@@ -54,8 +54,9 @@ public class FrmInsertarIndividuo extends javax.swing.JFrame {
         List<Integer> paises = new ArrayList<>();
         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
         
-        PaisQueries consultasAlojamiento = new PaisQueries();
-        paises = consultasAlojamiento.seleccionarPaises();
+        DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+        PaisDAO paisDAO = sqlserverFactory.getPaisDAO();
+        paises = paisDAO.seleccionarPaises();
         
         Iterator iterador = paises.listIterator();
         while( iterador.hasNext() ) {
@@ -77,8 +78,10 @@ public class FrmInsertarIndividuo extends javax.swing.JFrame {
                         calendarFechaNac.getDate(),(int) cmbAlojamiento.getSelectedItem(), tbxCiudad.getText(), 
                         tbxOcupacion.getText(), (String) cmbPais.getSelectedItem(), (int) cmbEntrenador.getSelectedItem());
 
-                IndividuoQueries consultasIndividuo = new IndividuoQueries();
-                int result = consultasIndividuo.insertarIndividuo(individuo);
+                DAOFactory sqlserverFactory = DAOFactory.getDAOFactory(DAOFactory.SQLSERVER);
+                IndividuoDAO individuoDAO = sqlserverFactory.getIndividuoDAO();
+
+                int result = individuoDAO.insertarIndividuo(individuo);
                 if(result > 0 )
                     JOptionPane.showMessageDialog(null, "Individuo insertado correctamente!");
                 else

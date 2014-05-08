@@ -1,6 +1,8 @@
 
-package Clases;
+package DAO;
 
+import Clases.Alojamiento;
+import Factory.SQLServerDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,11 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaisQueries {
-
-    public PaisQueries() {}
+public class SQLServerPaisDAO implements PaisDAO {
     
-     // Buscar todos los alojamientos disponibles
+    public SQLServerPaisDAO(){ }
+
+    @Override
+    // Buscar todos los alojamientos disponibles
     public List seleccionarPaises() {
         Connection conn = null;
         PreparedStatement stmt;
@@ -21,7 +24,7 @@ public class PaisQueries {
         ArrayList<String> paises = new ArrayList<>();
         
         try{  
-            conn = SQLServerConnector.createConnection();
+            conn = SQLServerDAOFactory.createConnection();
             stmt = conn.prepareStatement("SELECT ISO FROM Pais");
             rs = stmt.executeQuery();
             
@@ -48,3 +51,4 @@ public class PaisQueries {
         return paises;
     }
 }
+
